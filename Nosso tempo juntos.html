@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Nossa História ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .container {
+      background: rgba(255,255,255,0.95);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 420px;
+    }
+
+    .rose {
+      font-size: 70px;
+      animation: abrirRosa 2s ease forwards;
+    }
+
+    @keyframes abrirRosa {
+      0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+      60% { transform: scale(1.3) rotate(20deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0); }
+    }
+
+    .foto {
+      width: 100%;
+      border-radius: 15px;
+      margin-top: 15px;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-size: 17px;
+      min-height: 50px;
+    }
+
+    .time {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #e91e63;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff4d6d;
+      animation: subir 5s linear infinite;
+    }
+
+    @keyframes subir {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="rose">🌹</div>
+
+  <img id="foto" class="foto" src="foto1.jpg">
+
+  <div class="message" id="mensagem"></div>
+  <div class="time" id="tempo"></div>
+</div>
+
+<script>
+  // PERSONALIZAÇÃO
+  const nome = "Laura, meu grande Amor";
+  const dataInicio = new Date("2025-12-14");
+
+  const historia = [
+    { foto: "foto1.jpeg", texto: `O começo de tudo com você, ${nome} ❤️` },
+    { foto: "foto2.jpeg", texto: `Cada momento ao seu lado é especial 💖` },
+    { foto: "foto3.jpeg", texto: `A gente construindo nossa história juntos ✨` },
+    { foto: "foto4.jpeg", texto: `Eu escolheria você mil vezes 💘` },
+    { foto: "foto5.jpeg", texto: `E ainda temos muito pra viver juntos ❤️` }
+  ];
+
+  let index = 0;
+
+  function atualizarHistoria() {
+    const img = document.getElementById("foto");
+    const msg = document.getElementById("mensagem");
+
+    img.style.opacity = 0;
+
+    setTimeout(() => {
+      index = (index + 1) % historia.length;
+      img.src = historia[index].foto;
+      msg.innerText = historia[index].texto;
+      img.style.opacity = 1;
+    }, 500);
+  }
+
+  setInterval(atualizarHistoria, 4000);
+
+  // TEMPO DE NAMORO
+  function atualizarTempo() {
+    const agora = new Date();
+    let diff = agora - dataInicio;
+
+    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+    diff -= dias * (1000 * 60 * 60 * 24);
+
+    const horas = Math.floor(diff / (1000 * 60 * 60));
+    diff -= horas * (1000 * 60 * 60);
+
+    const minutos = Math.floor(diff / (1000 * 60));
+    diff -= minutos * (1000 * 60);
+
+    const segundos = Math.floor(diff / 1000);
+
+    document.getElementById("tempo").innerText =
+      `Juntos há ${dias} dias, ${horas}h ${minutos}m ${segundos}s ❤️`;
+  }
+
+  setInterval(atualizarTempo, 1000);
+  atualizarTempo();
+
+  // CORAÇÕES
+  function criarCoracao() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = "❤️";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+  }
+
+  setInterval(criarCoracao, 500);
+</script>
+
+</body>
+</html>
